@@ -1,0 +1,27 @@
+<div class="page">
+    <h1 class="text-center hidden">{{ title }}</h1>
+    <div id="dashboard__main" class="banner column">
+        <div id="dashboard__apps">
+            <h4 id="dashboard__no-apps">
+                You currently have no apps to configure.<br/>
+                Add them by clicking <i class="fas fa-plus"></i> below.
+            </h4>
+        </div>
+        <div id="dashboard__buttons">
+            <button id="dashboard__add-app" class="medium">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+{{#yield-styles}}
+    <link rel='stylesheet' href='/css/dashboard/dashboard.css' />
+{{/yield-styles}}
+ 
+{{#yield-scripts}}
+    <script type="text/javascript">
+        assignVar('apps', '{{ apps }}'); // Accessible by vars.apps
+    </script>
+    <script type="text/javascript" src="/js/dashboard/dashboard.js"></script>
+{{/yield-scripts}}

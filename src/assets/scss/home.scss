@@ -1,0 +1,41 @@
+@import "shared/vars";
+@import "shared/util";
+
+#home__page {
+    z-index: $layer_page_foreground;
+}
+
+#home__background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at top left, $color_light_accent 0%, $color_background 40%, $color_background 100%);
+    z-index: $layer_page_background;
+}
+
+#home__main {
+    #home__welcome {
+        flex-direction: row;
+        @include for-large-tablet-down {
+            flex-direction: column;
+            flex: unset;
+        }
+    
+        #home__subscript {
+            position: absolute;
+            transform: translate(14.3em, -2.6em);
+            @include disable-selection;
+            margin: 0;
+            color: $color_body; 
+        }
+    }
+}
+
+body.dark {
+    #home__background {
+        background-image: radial-gradient(circle at top left, $color_dark_light_accent 0%, $color_dark_background 40%, $color_dark_background 100%) !important;
+    }
+    #home__subscript {
+        color: $color_dark_body_text !important;
+    }
+}

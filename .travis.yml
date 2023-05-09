@@ -1,0 +1,103 @@
+language: node_js
+
+node_js:
+    - '12.16.1'
+
+cache:
+  npm: true
+  directories:
+    - node_modules
+
+services: mongodb
+
+env:
+  global:
+    - PATH=$HOME/.local/bin:$PATH
+    - secure: "mv0XtUsHMgRJj20A4//gSRtW488sLCHOoqY0LI+k6ExlUCrvKyZjBasvQyBEB4sEypvggB9kbgqEQbB4aj8gPPb6FuDu0fr2/nBJT8HrPNdNsOBacpeDQ/ltjIROkRo5yxv+RZqUdOsnOf2ZA0HeMwPqRXsreulHk+ULagKFHTalZekXQwmN8487EaxeADlA7F78MWMZPK/IuAU800h7qjn2wk8SuMMiU1L0JWLq2eB2812H85xTXEQGnpVywQvjjcgcKs269abHV1DQ9V8pl/y2HNAy329sazW+7oBee9cj0gCpWfCCesaN/bhSI+/jQOsTeRaxzlgKBAGvkY2RcY5+lBXISLRrISyYDH7UM6q3HLTJXuH0TeAHEHDXqp2Hz/DjB0c+n89hGG6em7QVm4x9NpUXkCcSVVfW6UB99su//WXlQI+8XbxjxHNGqslQ/qqrTOHSvKf9Edwgd/6jxd1cwj58G4xyRnkhR7xd/ACNtxxWIoF0VN7paXLlNtFHG6U4P7mc+LAxlgCLVjdE99Pu6YAWW+XYNkHFI/zokkxckQhXg0PKnpfNwqVr6TFnvVQq9QpoanuVOablEJdDqrDePjZk1AIdMoq1Jy+E7CrQF8JJ0k96A8WCRZLRwK/Yw5qJlfRNDSW5WXH6YSXEnnoyWY9uhym782Uvm/QJ5cs="
+
+before_install:
+  - pyenv global 3.7.1
+  - pip install -U pip
+  - pip install awscli
+
+jobs:
+  include:
+    - stage: test
+      script: 
+        - cd $TRAVIS_BUILD_DIR/scripts
+        - chmod +x config.sh
+        - ./config.sh rmpanel-app-dev
+        - node ../src/migrations/migrator.js
+        - npm test
+    - stage: deploy s3
+      script: 
+        - if [ ! "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "PR. skipping s3 deployment."; fi
+      deploy:
+        provider: cloudformation
+        access_key_id: "$AWS_ACCESS_KEY_ID"
+        secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+        template: ./deployment/s3.yaml
+        region: $AWS_DEFAULT_REGION
+        stack_name: rmpanel-s3-stack-prod
+        edge: true
+      after_deploy:
+        - aws cloudformation wait stack-create-complete --stack-name rmpanel-s3-stack-prod
+    - stage: deploy stack
+      script: 
+        - if [ ! "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "PR. skipping stack deployment."; fi
+      deploy:
+        provider: cloudformation
+        access_key_id: "$AWS_ACCESS_KEY_ID"
+        secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+        template: ./deployment/stack.yaml
+        region: $AWS_DEFAULT_REGION
+        stack_name: mirai-app-stack-prod
+        edge: true
+    - stage: migrate (prod)
+      script:
+        - if [ ! "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "PR. skipping migration."; exit 0; fi
+        - cd $TRAVIS_BUILD_DIR/scripts
+        - chmod +x config.sh
+        - ./config.sh mirai-app-prod
+        - node ../src/migrations/migrator.js
+    - stage: deploy app
+      script:
+        - if [ ! "$TRAVIS_PULL_REQUEST" = "false" ]; then echo "PR. skipping app deployment."; exit 0; fi
+        - cd $TRAVIS_BUILD_DIR/scripts
+        - chmod +x config.sh
+        - ./config.sh mirai-app-prod
+        - jq -c '.application.travis_build = ($buildNum | tonumber)' --arg buildNum $TRAVIS_BUILD_NUMBER ../config/config.json > ../config/config2.json
+        - jq -c '.application.environment = $env' --arg env 'prod' ../config/config2.json > ../config/config3.json
+        - jq -c '.log.debug = ($flag | test("true"))' --arg flag true ../config/config3.json > ../config/config4.json
+        - mv ../config/config4.json ../config/config.json
+        - npm install
+        - cd ..
+        - ./node_modules/.bin/gulp
+        - zip -r ./deployment/deploy.zip .
+      deploy:
+        - provider: elasticbeanstalk
+          access_key_id: "$AWS_ACCESS_KEY_ID"
+          secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+          region: $AWS_DEFAULT_REGION
+          app: rmpanel-app-prod
+          env: rmpanel-app-prod
+          bucket_name: rmpanel-app-prod
+          zip_file: ./deployment/deploy.zip
+          skip_cleanup: true
+          edge: true
+          on:
+            branch: $TRAVIS_BRANCH
+          
+stages:
+  - test
+  - name: deploy s3
+    if: branch = master
+  - name: deploy stack
+    if: branch = master
+  - name: migrate (prod)
+    if: branch = master
+  - name: deploy app
+    if: branch = master
+
+after_failure:
+  - sleep 5

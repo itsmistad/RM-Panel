@@ -1,0 +1,21 @@
+<div class="page">
+    <h1 class="text-center hidden">{{ title }}</h1>
+    <div id="app__main" class="banner column">
+        <div id="app__menu-wrapper" class="row">
+            <div id="app__sidebar" class="banner column">
+
+            </div>
+            <div id="app__menu" class="banner column">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#yield-styles}}
+    <link rel='stylesheet' href='/css/apps/app.css' />
+{{/yield-styles}}
+ 
+{{#yield-scripts}}
+    <script type="text/javascript" src="/js/apps/app.js"></script>
+{{/yield-scripts}}

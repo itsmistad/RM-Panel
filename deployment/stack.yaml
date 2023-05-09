@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Resources:
+  RMPanelApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName: rmpanel-app-prod
+      Description: AWS Elastic Beanstalk RM Panel
+  RMPanelConfigurationTemplate:
+    Type: AWS::ElasticBeanstalk::ConfigurationTemplate
+    Properties:
+      ApplicationName:
+        Ref: RMPanelApplication
+      Description: AWS ElasticBeanstalk RM Panel Configuration Template
+      OptionSettings:
+      - Namespace: aws:autoscaling:asg
+        OptionName: MinSize
+        Value: '2'
+      - Namespace: aws:autoscaling:asg
+        OptionName: MaxSize
+        Value: '6'
+      - Namespace: aws:elasticbeanstalk:environment
+        OptionName: EnvironmentType
+        Value: LoadBalanced
+      - Namespace: aws:autoscaling:launchconfiguration
+        OptionName: IamInstanceProfile
+        Value: aws-elasticbeanstalk-ec2-role # This role is one you must create in IAM (and it must have the following policies attached: AWSElasticBeanstalkWebTier, AWSElasticBeanstalkMulticontainerDocker, and AWSElasticBeanstalkWorkerTier).
+      SolutionStackName: 64bit Amazon Linux 2018.03 v4.14.1 running Node.js
+  RMPanelApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    Properties:
+      Description: 1.0.0
+      ApplicationName: 
+        Ref: RMPanelApplication
+      SourceBundle:
+        S3Bucket: elasticbeanstalk-samples-us-east-2
+        S3Key: nodejs-sample-v2.zip
+  RMPanelEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName:
+        Ref: RMPanelApplication
+      EnvironmentName: rmpanel-app-prod
+      CNAMEPrefix: rmpanel-app-prod
+      Description: AWS ElasticBeanstalk RM Panel Environment
+      VersionLabel:
+        Ref: RMPanelApplicationVersion
+      TemplateName:
+        Ref: RMPanelConfigurationTemplate
+      OptionSettings:
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: InstanceType
+          Value: t2.nano
+Outputs:
+  URL:
+    Description: RM Panel's URL
+    Value:
+      Fn::Join:
+        - ""
+        -
+          - "http://"
+          - Fn::GetAtt: RMPanelEnvironment.EndpointURL

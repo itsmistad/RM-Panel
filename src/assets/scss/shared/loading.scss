@@ -1,0 +1,19 @@
+@import "vars";
+
+#loading__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background-color: $color_background;
+    z-index: $layer_loading_screen;
+    transition: all $transition_350;
+
+    #loading__img {
+        transition: all $transition_200;
+    }
+}

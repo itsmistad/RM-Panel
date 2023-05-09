@@ -1,0 +1,25 @@
+<div class="page">
+    <h1 class="text-center hidden">{{ title }}</h1>
+    <div id="app__main" class="banner column">
+        <button id="app__save" class="medium">Save</button>
+        <div id="app__menu-wrapper" class="row">
+            <div id="app__sidebar" class="banner column">
+            </div>
+            <div id="app__menu" class="banner column">
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#yield-styles}}
+    <link rel='stylesheet' href='/css/apps/app.css' />
+    <link rel='stylesheet' href='/css/apps/currency.app.css' />
+{{/yield-styles}}
+ 
+{{#yield-scripts}}
+    <script type="text/javascript" src="/js/apps/app.js"></script>
+    <script type="text/javascript" src="//cdn.shopify.com/s/javascripts/currencies.js"></script>
+    <script type="text/javascript" src="http://www.geoplugin.net/javascript.gp"></script>
+    <script type="text/javascript" src="/js/apps/currency.app.js"></script>
+    <script type="text/javascript" src="/js/apps/currency.js"></script>
+{{/yield-scripts}}

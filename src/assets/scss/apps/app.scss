@@ -1,0 +1,47 @@
+@import "../shared/vars";
+
+.page {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+
+    #app__main {
+        padding: 4em 4em;
+        width: 70%;
+        max-width: 80em;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: flex-start;
+
+        #app__save {
+            position: absolute;
+            right: 1em;
+            top: 1em;
+        }
+
+        #app__menu-wrapper {
+            flex: 1;
+
+            #app__sidebar {
+                width: 16em;
+
+                button {
+                    &.selected {
+                        background-color: $color_dark_accent;
+                    }
+                }
+            }
+
+            #app__menu {
+                flex: 1;
+                overflow-y: scroll;
+
+                .app__menu__section {
+                    margin-bottom: 2em;
+                }
+            }
+        }
+    }
+}

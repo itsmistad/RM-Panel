@@ -1,0 +1,28 @@
+<div id="home__background">
+</div>
+<div id="home__page" class="column">
+    <div class="row stack-when-laptop" style="justify-content:space-between">
+        <div id="home__main" class="column full-view-height full-center full-width">
+            <div id="home__welcome" class="full-center">
+                <div class="column">
+                    <span>
+                        <h1 id="home__logo" class="logo home">RM</h1>
+                        <h3 id="home__subscript">Panel</h3>
+                    </span>
+                    <button id="home__dashboard">Go to Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#yield-styles}}
+    <link rel='stylesheet' href='/css/home.css' />
+{{/yield-styles}}
+ 
+{{#yield-scripts}}
+    <script type="text/javascript">
+        const badLogin = {{ badLogin }};
+    </script>
+    <script type="text/javascript" src="/js/home.js"></script>
+{{/yield-scripts}}

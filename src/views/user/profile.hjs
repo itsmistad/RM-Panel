@@ -1,0 +1,66 @@
+<div class="page">
+    <h1 class="text-center hidden">Profile</h1>
+    <div id="profile__main" class="banner column">
+        <div id="profile__banner-wrapper">
+            <form id="profile__banner-form" enctype="multipart/form-data">
+                <input type="file" id="profile__banner-file" class="full-hidden" name="file" accept="image/png, image/jpeg">
+            </form>
+            <div id="profile__banner-overlay" class="full-center full-hidden">
+                <h3>
+                    Click here to change your banner.
+                </h3>
+            </div>
+            <img id="profile__banner">
+            <div id="profile__banner-progress"></div>
+        </div>
+        <div id="profile__content">
+            <div id="profile__user-data">
+                <div id="profile__picture-wrapper">
+                    <form id="profile__picture-form" enctype="multipart/form-data">
+                        <input type="file" id="profile__picture-file" class="full-hidden" name="file" accept="image/png, image/jpeg, image/webp">
+                    </form>
+                    <div id="profile__picture-overlay" class="full-center full-hidden">
+                        <h5>
+                            Click here to change your picture.
+                        </h5>
+                    </div>
+                    <img id="profile__picture">
+                    <div id="profile__picture-progress"></div>
+                </div>
+                <h3 id="profile__full-name">{{ title }}</h3>
+                <h5 id="profile__display-name"></h5>
+                <div id="profile__display-name-textbox" class="textbox full-hidden">
+                    <input type="text" id="profile__display-name-input" autocomplete="off">
+                    <label for="profile__display-name-input">
+                        <span>Display Name</span>
+                    </label>
+                </div>
+            </div>
+            <div id="profile__buttons">
+                <button id="profile__edit-button"></button>
+            </div>
+            <div class="row" style="justify-content:flex-start;">
+                <div class="column" style="max-width: 20em">
+                    <div id="profile__about" class="banner column">
+                        <h5>About</h5>
+                        <hr>
+                        <ul>
+                            <li id="profile__about__email"><img src="/files/svg/email.svg"><span style="overflow-x:scroll;" name="Email Address"></span></li>
+                            <li style="display:none" id="profile__about__job"><img src="/files/svg/work.svg"><span style="overflow-x:scroll;" name="Job Title"></span></li>
+                            <li style="display:none" id="profile__about__employer"><img src="/files/svg/office.svg"><span style="overflow-x:scroll;" name="Employer"></span></li>
+                            <li style="display:none" id="profile__about__location"><img src="/files/svg/pin.svg"><span style="overflow-x:scroll;" name="Location"></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#yield-styles}}
+    <link rel='stylesheet' href='/css/user/profile.css' />
+{{/yield-styles}}
+ 
+{{#yield-scripts}}
+    <script type="text/javascript" src="/js/user/profile.js"></script>
+{{/yield-scripts}}

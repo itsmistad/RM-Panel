@@ -1,0 +1,3 @@
+<div id="loading__container">
+    <img id="loading__img" class="hidden" src="/files/loading.gif" />
+</div>

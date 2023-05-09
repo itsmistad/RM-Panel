@@ -1,0 +1,55 @@
+{
+    "env": {
+        "commonjs": true,
+        "es6": true,
+        "node": true,
+        "mocha": true
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "ignorePatterns": [
+        "*.ico",
+        "*.gif",
+        "*.jpg",
+        "*.png",
+        "*.hjs",
+        "*.css",
+        "*.scss",
+        "*.html",
+        "*.md",
+        "*.eot",
+        "*.svg",
+        "*.ttf",
+        "*.woff",
+        "*.json",
+        "*.mp3",
+        "*.woff2",
+        "**/uploads/**",
+        "**/assets/**/*.js",
+        "**/assets/apps/**/*.js"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}

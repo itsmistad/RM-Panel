@@ -1,0 +1,111 @@
+@import "util";
+
+#notify-queue {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 0 20px 20px;
+  
+    .notify-popup.corner {
+        position: relative;
+        transform: unset;
+        left: 0;
+        top: 0;
+        padding: 20px 20px;
+        margin-top: 20px;
+        border-radius: 16px;
+        box-shadow: 0 0 15px -6px rgba(0, 0, 0, 0.7);
+        min-width: 200px;
+        width: 400px;
+
+        @include for-phone-only {
+            width: 80%;
+        }
+    
+        .subheader {
+            text-align: left;
+            font-size: em(14);
+        }
+    
+        .body {
+            text-align: left;
+            font-size: em(14);
+        }
+  
+        .buttons {
+            display: flex;
+            justify-content: center;
+            flex-flow: row wrap;
+    
+            button {
+                font-size: em(12);
+                margin: 0.4em;
+            }
+        }
+    }
+}
+  
+.notify-popup {
+    position: fixed;
+    min-width: 250px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 20px 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    &::-webkit-scrollbar { /* WebKit */
+        width: 0;
+        height: 0;
+    }
+  
+    .header {
+        font-size: 1.5em;
+        padding: 0 0 10px;
+    }
+  
+    .subheader {
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-size: .75em;
+        padding: 0 10px 10px;
+    }
+  
+    .body {
+        font-size: .875em;
+        padding: 0 10px 10px;
+        text-align: left;
+    }
+  
+    .buttons {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        @supports (-ms-ime-align:auto) {
+            justify-content: space-around;
+        }
+    }
+  
+    .close {
+        font-size: .875em;
+        font-weight: 700;
+        cursor: pointer;
+        color: #ddd;
+        text-align: center;
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        user-select: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 0;
+        top: 0;
+    }
+}

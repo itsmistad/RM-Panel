@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+    <head>
+        <title>{{ title }} | RM Panel</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="/files/favicon.ico">
+        <link rel="stylesheet" href="/css/shared/notify.css" />
+        <link rel="stylesheet" href="/css/shared/theme.css" />
+        <link rel="stylesheet" href="/css/shared/loading.css" />
+        <link rel="stylesheet" href="/css/shared/all.css" />
+        <link rel="stylesheet" href="/css/shared/quill.snow.css" />
+        <link rel="stylesheet" href="/css/shared/spectrum.css" />
+        {{{ yield-styles }}}
+
+        <!-- The variables defined here retrieve values from the controller and are globally accessible. -->
+        <script> 
+            const config = Object.freeze({
+            });
+            const user = Object.freeze(JSON.parse("{{ userObj }}".replace(/&quot;/g,'"')));
+            const isProd = {{ isProd }};
+            let paramUser;
+            try {
+                paramUser = Object.freeze(JSON.parse("{{ paramUserObj }}".replace(/&quot;/g,'"')));
+            } catch(ex) {}
+        </script>
+    </head>
+    <body class="">
+        {{> loading }}
+        <header id="layout__header">
+            {{> header }}
+        </header>
+        <main id="layout__main">
+            {{{ yield }}}
+        </main>
+        <footer id="layout__footer">
+            {{> footer }}
+        </footer>
+        <!-- Corner Notification Queue -->
+        <div id="notify-queue"></div>
+    </body>
+    <script>
+        if (user.nightMode) {
+            document.getElementsByTagName('body')[0].classList.add('dark');
+            document.getElementsByTagName('html')[0].classList.add('dark');
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" 
+                        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                        crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" 
+                        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+                            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/js/dependencies/util.js"></script>
+    <script type="text/javascript" src="/js/dependencies/garlic.min.js"></script>
+    <script type="text/javascript" src="/js/dependencies/interact.min.js"></script>
+    <script type="text/javascript" src="/js/dependencies/network.js"></script>
+    <script type="text/javascript" src="/js/dependencies/notify.js"></script>
+    <script type="text/javascript" src="/js/dependencies/contextly.js"></script>
+    <script type="text/javascript" src="/js/dependencies/lottie.min.js"></script>
+    <script type="text/javascript" src="/js/dependencies/socket.io.js"></script>
+    <script type="text/javascript" src="/js/dependencies/highlight.min.js"></script>
+    <script type="text/javascript" src="/js/dependencies/quill.min.js"></script>
+    <script type="text/javascript" src="/js/dependencies/spectrum.js"></script>
+    <script type="text/javascript" src="/js/shared/loading.js"></script>
+    <script type="text/javascript" src="/js/shared/upload.js"></script>
+    <script type="text/javascript" src="/js/shared/theme.js"></script>
+    {{{ yield-scripts }}}
+</html>

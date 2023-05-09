@@ -1,0 +1,136 @@
+/* Variables */
+$font_base_size: 16px;
+
+/*=============================================
+=                  Functions                  =
+=============================================*/
+// Converts a specified amount of pixels (px) to "em" format.
+@function em($px) {
+    @if not unitless($px) {
+        $px: strip-units($px);
+    }
+
+    @return ($px / strip-units($font_base_size)) * 1em;
+}
+
+// Strips units away from a specified decimal value.
+@function strip-units($value) {
+    @return ($value / ($value * 0 + 1));
+}
+
+// Scales a specified amount of pixels (px) by a factor (f).
+@function scale-pixel($px, $f) {
+    @if not unitless($px) {
+        $px: strip-units($px);
+    }
+
+    @return #{$px * $f}px;
+}
+
+/*=============================================
+=                   Mixins                    =
+=============================================*/
+
+@mixin for-custom-down($custom) {
+    @if unitless($custom) {
+        $custom: #{$custom}px; 
+    }
+
+    @media only screen and (max-width: $custom) {
+        @content;
+    }
+}
+
+@mixin for-custom-up($custom) {
+    @if unitless($custom) {
+        $custom: #{$custom}px;
+    }
+
+    @media only screen and (min-width: $custom) {
+        @content;
+    }
+}
+
+
+@mixin for-phone-only {
+    @media only screen and (max-width: 539.9px), only screen and (max-device-width: 539.9px) {
+        @content;
+    }
+}
+
+@mixin for-small-tablet-up {
+    @media only screen and (min-width: 540px), only screen and (min-device-width: 540px) {
+        @content;
+    }
+}
+
+@mixin for-small-tablet-down {
+    @media only screen and (max-width: 799.9px), only screen and (max-device-width: 799.9px) {
+        @content;
+    }
+}
+
+@mixin for-large-tablet-up {
+    @media only screen and (min-width: 800px), only screen and (min-device-width: 800px) {
+        @content;
+    }
+}
+
+@mixin for-large-tablet-down {
+    @media only screen and (max-width: 999.9px), only screen and (max-device-width: 999.9px) {
+        @content;
+    }
+}
+
+@mixin for-laptop-up {
+    @media only screen and (min-width: 1000px) {
+        @content;
+    }
+}
+
+@mixin for-laptop-down {
+    @media only screen and (max-width: 1439.9px) {
+        @content;
+    }
+}
+
+@mixin for-desktop-up {
+    @media only screen and (min-width: 1440px) {
+        @content;
+    }
+}
+
+@mixin for-desktop-down {
+    @media only screen and (max-width: 1920px) {
+        @content;
+    }
+}
+
+@mixin for-ultrawide-only {
+    @media only screen and (min-width: 1920.1px) {
+        @content;
+    }
+}
+
+@mixin embossed($offset: 6px, $blur: 10px) {
+    box-shadow: #{$offset} #{$offset} $blur rgba(0,0,0,0.2),
+        -#{$offset} -#{$offset} $blur rgba(255,255,255,1);
+}
+
+@mixin engraved($offset: 6px, $blur: 14px) {
+    box-shadow: inset #{$offset} #{$offset} #{$blur} rgba(0,0,0,0.2),
+        inset -#{$offset} -#{$offset} #{$blur} rgba(255,255,255,1);
+}
+
+@mixin disable-selection {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none;   /* Safari */
+    -khtml-user-select: none;    /* Konqueror HTML */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* Internet Explorer/Edge */
+    user-select: none;           /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+/*=============================================
+=                   End Mixins                =
+=============================================*/

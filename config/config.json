@@ -1,0 +1,18 @@
+{
+    "application": {
+        "environment": "local",
+        "travis_build": 0
+    },
+    "database": {
+        "mongo": {
+            "host": "localhost",
+            "port": "27017",
+            "auth": false,
+            "user": "",
+            "pass": ""
+        }
+    },
+    "log": {
+        "debug": true
+    }
+}

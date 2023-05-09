@@ -1,0 +1,38 @@
+$layer_loading_screen: 10000;
+$layer_notify_popup: 2000;
+$layer_notify_queue: 1000;
+$layer_context_menu: 100;
+$layer_page_foreground: 10;
+$layer_page_background: -10;
+$layer_page_header_and_footer: 100;
+
+$color_light_accent: #FFCECE;
+$color_accent: #FF5B5B; 
+$color_dark_accent: #C12D2D;
+$color_header: #1e1b1e; 
+$color_footer: #494848;
+$color_footer_hover: #606060;
+$color_body: #494848;
+$color_links: #EF6868;
+$color_highlighted: #F83232;
+$color_background: #F2F3F4;
+$color_success: #27BA56;
+$color_error: #ba274a;
+
+$color_dark_header: #2D2F2F;
+$color_dark_logo_glow: #D18989;
+$color_dark_shadow: #444444;
+$color_dark_background: #4D5050;
+$color_dark_body_text: #E8EDED;
+$color_dark_header_text: #FFFFFF;
+$color_dark_light_accent: #583535;
+$color_dark_header_button: #575B5B;
+
+$font_header: 'Montserrat', Arial;
+$font_body: 'Roboto', 'Courier New';
+$font_quote: 'Courier New';
+
+$transition_200: 200ms cubic-bezier(.4,.0,.23,1);
+$transition_350: 350ms cubic-bezier(.4,.0,.6,1);
+$transition_500: 500ms cubic-bezier(.4,.0,.6,1);
+$transition_800: 800ms cubic-bezier(.4,.0,.6,1);

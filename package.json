@@ -1,0 +1,61 @@
+{
+  "name": "rmpanel",
+  "version": "0.0.1",
+  "description": "A control panel for RM's Shopify apps.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "mocha \"src/test/**/*.test.js\" --timeout 5000",
+    "unit-test": "mocha \"src/test/unit/**/*.test.js\"",
+    "int-test": "mocha \"src/test/integration/**/*.test.js\" --timeout 5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsmistad/RM-Panel.git"
+  },
+  "author": "itsmistad",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/itsmistad/RM-Panel/issues"
+  },
+  "homepage": "https://github.com/itsmistad/RM-Panel#readme",
+  "dependencies": {
+    "@itsmistad/network.js": "^1.0.1",
+    "@itsmistad/notify.js": "^1.0.1",
+    "aws-sdk": "^2.622.0",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "deasync": "^0.1.19",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "hogan-express": "^0.5.2",
+    "mongodb": "^3.5.2",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
+    "nodemailer": "^6.4.3",
+    "nodemailer-mailgun-transport": "^2.0.0",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "passport.socketio": "^3.7.0",
+    "socket.io": "^2.3.0",
+    "underscore": "^1.9.2",
+    "web-push": "^3.4.3"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "chai": "^4.2.0",
+    "eslint": "^6.8.0",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-cli": "^2.2.0",
+    "gulp-rev-all": "^2.0.2",
+    "gulp-rev-rewrite": "^3.0.2",
+    "gulp-sass": "^4.0.2",
+    "mocha": "^7.0.1",
+    "recursive-readdir": "^2.2.2",
+    "rimraf": "^3.0.2",
+    "sinon": "^8.1.1",
+    "sinon-chai": "^3.4.0"
+  }
+}

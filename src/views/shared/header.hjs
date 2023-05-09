@@ -1,0 +1,6 @@
+<div id="header__left-container">
+    <a id="header__button-logo" class="logo" href="/">RM<span>Panel</span></a>
+</div>
+<div id="header__right-container">
+    <a id="header__button-login" class="header__button" href="/auth/google/callback">Login</a>
+</div>

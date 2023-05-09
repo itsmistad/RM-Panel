@@ -1,0 +1,10 @@
+<div class="page">
+    <h1 class="text-center hidden">{{ title }}</h1>
+    <div class="policy__container banner column">
+        <p>Todo</p>
+    </div>
+</div>
+
+{{#yield-styles}}
+    <link rel='stylesheet' href='/css/policies/policies.css' />
+{{/yield-styles}}

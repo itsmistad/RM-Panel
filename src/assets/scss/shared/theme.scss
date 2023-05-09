@@ -1,0 +1,1287 @@
+/* Imports */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap');
+@import "util";
+@import "vars";
+
+/*
+ * Any new class added to this section must have
+ * its selector defined in src/assets/js/theme.js!
+ */
+
+// ------------------- Tags -------------------
+html {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    @supports (-ms-ime-align:auto) {
+        -ms-overflow-style: none;
+    }
+}
+
+body {
+    position: relative;
+    min-height: 100vh;
+    min-width: 100%;
+    overflow-x: hidden;
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: $color_background;
+    font-family: $font_body;
+    font-size: $font_base_size;
+    @supports (-ms-ime-align:auto) {
+        -ms-overflow-style: none;
+    }
+
+    &.hidden {
+        overflow: hidden;
+    }
+
+    @include for-small-tablet-down {
+        @media only screen and (-webkit-min-device-pixel-ratio: 3.5) {
+            font-size: scale-pixel($font_base_size, 0.6);
+        }
+        @media only screen and (-webkit-min-device-pixel-ratio: 2) and (-webkit-max-device-pixel-ratio: 3.49) {
+            font-size: scale-pixel($font_base_size, 0.8);
+        }
+        @media only screen and (-webkit-max-device-pixel-ratio: 1.99) {
+        }
+    }
+}
+
+hr {
+    color: #ddd;
+    width: 80%;
+    border-style: solid;
+}
+
+h6, h5, h4, h3, h2, h1 {
+    color: $color_header;
+    font-family: $font_header;
+    margin: 0 0 0.8em 0;
+}
+
+h6 {
+    font-size: em(12px);
+}
+
+h5 {
+    font-size: em(16px);
+}
+
+h4 {
+    font-size: em(18px);
+}
+
+h3 {
+    font-size: em(22px);
+}
+
+h2 {
+    font-size: em(32px);
+}
+
+h1 {
+    font-size: em(48px);
+}
+
+a {
+    color: $color_links;
+    transition: all $transition_200;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+        color: $color_highlighted;
+        text-shadow: -1px 1px 0 #ccc;
+    }
+}
+
+p, span, div, label, input {
+    color: $color_body;
+}
+
+button {
+    margin: 4px 0 10px;
+    color: whitesmoke;
+    font-family: $font_header;
+    overflow: hidden;
+    padding: 1em 2.4em;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    background-color: $color_links;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all $transition_200;
+    font-size: em(20px);
+    @include disable-selection;
+
+    &.small {
+        padding: 0.6em 1.5em;
+        font-size: em(14px);
+    }
+
+    &.medium {
+        padding: 0.8em 1.8em;
+        font-size: em(16px);
+    }
+
+    &:hover {
+        background-color: $color_highlighted;
+        box-shadow: -3px 3px lightgray;
+    }
+
+    &:active {
+        transform: translateY(4px);
+    }
+
+    &.outline {
+        background-color: $color_background !important;
+        color: $color_body;
+        border: solid 3px $color_links;
+        &:hover {
+            background-color: $color_background !important;
+            border: solid 3px $color_highlighted;
+        }
+        &:active {
+            transform: translateY(4px);
+        }
+    }
+
+    &[disabled] {
+        background-color: darkgray;
+        cursor: default;
+        &:hover {
+            box-shadow: unset;
+        }
+        &:active {
+            transform: unset;
+        }
+    }
+}
+
+.ql-syntax,
+blockquote {
+    border-left: 2px solid #aaa;
+    padding: .4em 1.2em;
+    background-color: rgba(0,0,0,0.05);
+    color: $color_body;
+    font-family: $font_quote;
+    margin-left: 0;
+}
+
+.ql-syntax {
+    border-left: unset;
+}
+
+textarea {
+    resize: none;
+}
+
+div.textbox {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 0 0 1.4em;
+
+    input[type='number'],
+    input[type='date'],
+    input[type='time'],
+    input[type='text'],
+    input[type='email'] {
+        font-family: $font_header;
+        color: $color_body;
+        width: calc(100%);
+        height: calc(100% - .6em);
+        padding: 0.3em 0;
+        border: none;
+        outline: none;
+        background-color: $color_background;
+        font-size: em(16px);
+        transition: all $transition_200;
+        cursor: pointer;
+
+        &:read-only + label::after,
+        &:valid + label::after {
+            transform: translateX(0%);
+            border-bottom: 3px solid $color_success;
+        }
+        
+        &:read-only + label span,
+        &:valid + label span {
+            transform: translateY(150%);
+            font-size: em(14px);
+            color: $color_success;
+        }
+
+        &:invalid + label::after {
+            transform: translateX(0%);
+            border-bottom: 3px solid $color_error;
+        }
+        
+        &:invalid + label span {
+            transform: translateY(150%);
+            font-size: em(14px);
+            color: $color_error;
+        }
+    }
+    
+    input[value=''] {
+        &:valid + label span,
+        &:invalid + label span {
+            transform: unset;
+            font-size: unset;
+            color: unset;
+        }
+
+        &:valid + label::after,
+        &:invalid + label::after {
+            border-bottom: unset;
+            transform: translateX(-100%);
+        }
+    }
+    
+    input[type='number'],
+    input[type='date'],
+    input[type='time'],
+    input[type='text'],
+    input[type='email'] {
+        &:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        &:focus {
+            cursor: text;
+        }
+
+        &:hover + label span {
+            color: $color_links;
+        }
+
+        &:hover + label::after {
+            border-bottom: 3px solid $color_links;
+            transform: translateX(0%);
+        }
+        
+        &:focus + label span {
+            transform: translateY(150%);
+            font-size: em(14px);
+            color: $color_highlighted;
+        }
+
+        &:focus + label::after {
+            transform: translateX(0%);
+            border-bottom: 3px solid $color_highlighted;
+        }
+    }
+
+    input[type='date'][value=''],
+    input[type='time'][value=''] {
+        & + label span {
+            transform: translateY(150%) !important;
+        }
+    }
+    
+    label {
+        position: absolute;
+        text-align: left;
+        bottom: 1.4em;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-bottom: 1px solid black;
+        font-family: $font_header;
+    
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0px;
+            bottom: -1px;
+            height: 100%;
+            width: 100%;
+            transform: translateX(-100%);
+            transition: all $transition_200;
+        }
+    
+        span {
+            position: absolute;
+            bottom: 5px;
+            left: 0px;
+            transition: all $transition_200;
+        }
+    }
+}
+
+div.switch {
+    position: relative;
+    overflow: hidden;
+    font-family: $font_header;
+    
+    input[type='checkbox'] {
+        display: none;
+    }
+
+    input[type='checkbox'] + label {
+        position: relative;
+        display: flex;
+        margin-top: .8em;
+        align-items: center;
+        color: $color_header;
+        font-weight: bold;
+        transition: background-color $transition_200;
+        cursor: pointer;
+        @include disable-selection;
+        text-align: left;
+        
+        span {
+            position: relative;
+            cursor: pointer;
+            background-color: $color_body;
+            border-radius: 2em;
+            width: 3.5em;
+            height: 2em;
+            margin-right: 0.5em;
+
+            &:before {
+                position: absolute;
+                content: "";
+                height: 1.6em;
+                width: 1.6em;
+                left: 0.2em;
+                bottom: .21em;
+                transition: transform $transition_200;
+                background-color: white;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    input[type='checkbox']:checked + label > span {
+        background-color: $color_success;
+    }
+
+    input[type='checkbox']:focus + label > span {
+        box-shadow: 0 0 1px $color_links;
+    }
+
+    input[type='checkbox']:checked + label > span:before {
+        transform: translateX(1.5em);
+    }
+}
+
+div.checkbox {
+    font-family: $font_header;
+    margin-bottom: 0.5em;
+
+    &.separated {
+        width: 100%;
+
+        input[type='checkbox'] + label {
+            justify-content: space-between;
+            width: 100%;
+        }
+    }
+
+    input[type='checkbox'] {
+        display: none;
+    }
+
+    input[type='checkbox'] + label {
+        position: relative;
+        display: flex;
+        margin-top: .8em;
+        align-items: center;
+        color: $color_header;
+        font-weight: bold;
+        transition: $transition_200;
+        cursor: pointer;
+        @include disable-selection;
+        text-align: left;
+    }
+    
+    input[type='checkbox'] + label > span {
+        display: flex;
+        align-items: center;
+        margin-left: 0.9em;
+        margin-right: 1.4em;
+        min-width: 1.4em;
+        min-height: 1.4em;
+        background: transparent;
+        border: 2px solid $color_body;
+        border-radius: 2px;
+        cursor: pointer;  
+        transition: all $transition_200;
+    }
+    
+    input[type='checkbox']:checked + label > span {
+        border: 2px solid $color_links;
+        background-color: $color_links;
+        animation: shrink-bounce $transition_200;
+    }
+    
+    input[type='checkbox']:checked + label > span:before {
+        content: "";
+        position: absolute;
+        top: 0.3em;
+        left: 1.15em;
+        border-right: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+        transform: rotate(45deg);
+        transform-origin: 0% 100%;
+        animation: checkbox-check 125ms $transition_200 forwards;
+    }
+    
+    @keyframes shrink-bounce {
+        0% {
+            transform: scale(1);
+        }
+        33% {    
+            transform: scale(.85);
+        }
+        100% {
+            transform: scale(1);    
+        }
+    }
+    
+    @keyframes checkbox-check {
+        0% {
+            width: 0;
+            height: 0;
+            border-color: white;
+            transform: translate3d(0,0,0) rotate(45deg);
+        }
+        33% {
+            width: .2em;
+            height: .4em;
+            transform: translate3d(0,0,0) rotate(45deg);
+        }
+        100% {    
+            width: .2em;
+            height: 1em;    
+            border-color: white;
+            transform: translate3d(0,-.5em,0) rotate(45deg);
+        }
+    }
+}
+
+div.quill-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    border: 1px solid rgba(0,0,0,0.5);
+    border-radius: 4px;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    .toolbar {
+        background-color: #ddd;
+        width: 100%;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+    .quill {
+        font-family: 'Roboto', 'Courier New', Courier, monospace;
+        font-size: em(16);
+        width: 100%;
+        border-bottom: 1px solid rgba(0,0,0,0.3);
+        .ql-editor { 
+            font-family: inherit;
+            font-size: em(16);
+            min-height: 20em;
+            blockquote {
+                margin: 0;
+            }
+            p, ul {
+                margin: 0.2em 0;
+            }
+        }
+        .ql-tooltip {
+            input[type='text'] {
+                color: $color_body;
+            }
+        }
+    }
+}
+
+select {
+    padding: 0.2em 0.4em;
+    border: solid 2px #ccc;
+    transition: $transition_200;
+
+    &:hover {
+        border: solid 2px $color_accent;
+    }
+
+    &:focus {
+        border: solid 2px $color_dark_accent;
+        outline: none;
+    }
+}
+
+div.textarea {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-top: .4em;
+    min-height: 4em;
+    padding: 0 0 1.4em;
+
+    textarea {
+        left: 0;
+        top: 0;
+        font-family: $font_header;
+        min-height: 4em;
+        color: $color_body;
+        width: calc(100% - .8em);
+        height: calc(100% - .6em);
+        padding: 0.3em 0.4em;
+        border: none;
+        outline: none;
+        background-color: $color_background;
+        cursor: pointer;
+        transition: all $transition_200;
+        font-size: em(18px);
+
+        &:valid + label::after {
+            transform: translateX(0%);
+            border-bottom: 3px solid $color_highlighted;
+        }
+        
+        &:valid + label span {
+            transform: translateY(150%);
+            color: $color_highlighted;
+            font-size: em(14px);
+        }
+
+        &:invalid + label::after {
+            transform: translateX(0%);
+            border-bottom: 3px solid $color_error;
+        }
+        
+        &:invalid + label span {
+            transform: translateY(150%);
+            color: $color_error;
+            font-size: em(14px);
+        }
+    }
+    
+    textarea[value=''] {
+        &:valid + label span,
+        &:invalid + label span {
+            transform: unset;
+            font-size: unset;
+            color: unset;
+        }
+
+        &:valid + label::after,
+        &:invalid + label::after {
+            border-bottom: unset;
+            transform: translateX(-100%);
+        }
+    }
+    
+    textarea {
+        &:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        &:focus {
+            cursor: text;
+        }
+
+        &:hover + label span {
+            color: $color_links !important;
+        }
+
+        &:hover + label::after {
+            border-bottom: 3px solid $color_links !important;
+            transform: translateX(0%) !important;
+        }
+        
+        &:focus + label span {
+            transform: translateY(170%) !important;
+            color: $color_highlighted !important;
+            font-size: em(14px) !important;
+        }
+
+        &:focus + label::after {
+            transform: translateX(0%) !important;
+            border-bottom: 3px solid $color_highlighted !important;
+        }
+    }
+    
+    label {
+        font-family: $font_header;
+        position: absolute;
+        text-align: left;
+        bottom: 1.4em;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-bottom: 1px solid black;
+    
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0px;
+            bottom: -1px;
+            height: 100%;
+            width: 100%;
+            transform: translateX(-100%);
+            transition: all $transition_200;
+        }
+    
+        span {
+            position: absolute;
+            bottom: 5px;
+            left: 0px;
+            transition: all $transition_200;
+        }
+    }
+}
+
+// ------------------- Ids --------------------
+
+#layout__main {
+    display: flex;
+    flex-direction: column;
+}
+
+$header_height: 4em;
+/* Header classes */
+#layout__header {
+    background-color: rgba(242, 243, 244, 0.9);
+    display: flex;
+    position: absolute;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    z-index: $layer_page_header_and_footer;
+    width: 100%;
+    height: $header_height;
+
+    #header__left-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        #header__button-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0 20px;
+            text-decoration: none;
+            font-family: $font_header;
+            span {
+                position: absolute;
+                font-size: em(7);
+                transform: translate(7em, 0.8em);
+            }
+            &:hover {
+                color: $color_dark_accent;
+            }
+        }
+    }
+    #header__right-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        .header__button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0 0 0 0.4em;
+            padding: 0 0.8em;
+            text-decoration: none;
+            user-select: none;
+            &:hover {
+                background-color: #ddd;
+            }
+        }   
+
+        #header__button-login {
+            img {
+                width: 2em;
+                height: 2em;
+                margin-left: 0.4em;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+/* Taskbar Classes */
+#layout__taskbar {
+    position: absolute;
+    height: 45px;
+}
+
+/* Footer classes */
+#layout__footer {
+    background-color: $color_footer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    z-index: $layer_page_header_and_footer;
+    width: 100%;
+    height: 4em;
+    
+    #footer__version {
+        font-size: em(12);
+    }
+
+    #footer__left-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        p {
+            margin: 0 20px;
+            color: whitesmoke;
+        }
+    }
+    #footer_middle-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+        .footer__button-policy {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            margin: 0 0.4em;
+            padding: 0 0.8em;
+            text-decoration: none;
+            user-select: none;
+            text-align: center;
+            font-size: em(12);
+            &:hover {
+                background-color: $color_footer_hover;
+                text-shadow: unset;
+            }
+        }
+    }
+    #footer__right-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.hide-scroll {
+    &::-webkit-scrollbar-track {
+        display:none;
+    }
+    &::-webkit-scrollbar-thumb {
+        display:none;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #eee;
+}
+  
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    transition: 0.6s;
+    border-radius: 2px;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background: #888;
+    transition: 0.6s;
+}
+
+// ----------------- Shared Classes ------------------
+// These are classes you can tag onto (almost) any element to modify its behavior.
+
+.banner {
+    background-color: $color_background;
+    margin: 15px 15px;
+    padding: 20px 20px;
+    border-radius: 10px;
+    transition: $transition_200;
+    @include embossed;
+}
+
+.bold { // Bolds any child text or text directly within.
+    font-weight: bold;
+}
+
+.column { // Columnizes the children of the container.
+    display: flex;
+    flex-direction: column;
+    &.left { // Left aligns the children.
+        align-items: flex-start;
+    }
+
+    &.right { // Right aligns the children.
+        align-items: flex-end;
+    }
+
+    &.stretch { // Stretches the container to the full width of the parent container.
+        align-self: stretch;
+    }
+}
+
+.column-reverse { // Columnizes the children of the container in reverse-order.
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    align-self: stretch;
+    &.left { // Left aligns the children.
+        align-items: flex-start;
+    }
+
+    &.right { // Right aligns the children.
+        align-items: flex-end;
+    }
+
+    &.stretch { // Stretches the container to the full width of the parent container.
+        align-self: stretch;
+    }
+
+}
+
+.draggable {
+    user-select: none;
+    touch-action: none;
+}
+
+.full-center { // Fully center aligns the children of a container.
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+.full-frame { // Stretches a container to the full width and height of its parent.
+    width: 100%;
+    height: 100%;
+}
+
+.full-hidden { // Fully hides a container and its children.
+    display: none !important;
+}
+
+.full-view-height { // Stretches a container to the full view height of the device.
+    min-height: 100vh;
+}
+
+.full-width { // Stretches a container to the full width of its parent.
+    width: 100%;
+}
+
+.hidden { // Pseudo-hides a container and its children. The container is still in view and can grab focus!! It is just not visible to the user.
+    opacity: 0;
+}
+
+.logo {
+    color: $color_accent;
+    margin-top: 0;
+    font-size: em(40px);
+    margin-bottom: 0.5em;
+    transition: $transition_350;
+    text-shadow: 0 0 6px $color_light_accent;
+    cursor: pointer;
+    @include disable-selection;
+
+    &.home {
+        font-size: em(80px);
+    }
+
+    .no-margin {
+        margin: 0;
+    }
+}
+
+.lower { // Forces any child text or text directly within to lowercase.
+    text-transform: lowercase;
+}
+
+.page {
+    margin: $header_height 0 2em;
+    min-height: 100vh; 
+
+    & > div.background {
+        z-index: $layer_page_background;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    & > h1 {
+        margin: 30px;
+        transform: translateY(1em) scale(0.8);
+        opacity: 0;
+        transition: all $transition_500;
+
+        &.up {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+    }
+ 
+    & > .banner {
+        flex: 1;
+        opacity: 0;
+        box-shadow: none;
+        transition: all $transition_800;
+        
+        &.up {
+            @include embossed;
+            opacity: 1;
+        }
+    }
+}
+
+.row { // Rowizes the children of the container.
+    display: flex;
+    flex-direction: row;
+
+    &.left { // Left aligns the children.
+        justify-content: flex-start;
+    }
+
+    &.right { // Right aligns the children.
+        justify-content: flex-end;
+    }
+
+    &.stack-when-large-tablet { // Columnizes the children of the container when the screen width reaches "large-tablet-down"
+        @include for-large-tablet-down {
+            flex-direction: column;
+        }
+    }
+
+    &.stack-when-laptop { // Columnizes the children of the container when the screen width reaches "laptop-down"
+        @include for-laptop-down {
+            flex-direction: column;
+        }
+    }
+
+    &.stretch { // Stretches the container to the full width of the parent container.
+        justify-self: stretch;
+    }
+}
+
+.row-reverse { // Rowizes the children of the container in reverse-order.
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    justify-self: stretch;
+
+    &.left { // Left aligns the children.
+        justify-content: flex-start;
+    }
+
+    &.right { // Right aligns the children.
+        justify-content: flex-end;
+    }
+ 
+    &.stretch { // Stretches the container to the full width of the parent container.
+        justify-self: stretch;
+    }
+}
+
+.spaced { // Adds spacing between each letter of the child text and text directly within.
+    letter-spacing: 0.08em;
+}
+
+.text-center { // Center aligns any child text and text directly within.
+    text-align: center; 
+}
+
+.text-left { // Left aligns any child text and text directly within.
+    text-align: left;
+}
+
+.text-right { // Right aligns any child text and text directly within.
+    text-align: right;
+}
+
+.upper { // Forces any child text or text directly within to uppercase.
+    text-transform: uppercase;
+}
+
+// ----------------- Global Selectors ------------------
+// These are classes/ids you should not use to modify your elements.
+
+.required {
+    position: absolute !important;
+    right: 0 !important;
+    left: unset !important;
+    color: $color_error !important;
+}
+
+.notify-popup {
+    .subheader, .header {
+        font-family: $font_header;
+    }
+    .body {
+        text-align: center;
+    }
+}
+
+#notify-queue {
+    z-index: $layer_notify_queue;
+}
+
+.contextly-menu {
+    font-size: em(16);
+    font-weight: bold;
+    position: absolute;
+    opacity: 0;
+    max-height: 0;
+    background-color: white;
+    border-radius: 8px;
+    z-index: $layer_context_menu;
+    box-shadow: 6px 6px 8px 0px rgba(0,0,0,0.3);
+    overflow: hidden;
+
+    ul {
+        color: $color_body;
+        list-style-type: none; 
+        font-family: $font_header;
+        padding: 0;
+        margin: 0;
+        li {
+            padding: 0.6em 0.8em;
+            margin: 0;
+            cursor: pointer;
+            transition: all $transition_200;
+            user-select: none;
+            display:flex;
+            justify-content: left;
+
+            span.icon {
+                margin-right: 0.6em;
+                width: 2em;
+                height: 2em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            span.text {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            &:hover {
+                background-color: $color_light_accent;
+            }
+        }
+    }
+
+    &.show {
+        opacity: 1;
+    }
+}
+  
+.progress-bar {
+    height: 100%;
+    border-radius: 3px;
+    background-color: $color_light_accent;
+    width: 0;
+    height: 1em;
+}
+
+body.dark {
+    background-color: $color_dark_background !important;
+
+    #layout__footer {
+        background-color: $color_dark_header !important;
+        #footer_middle-container {
+            .footer__button-policy {
+                &:hover {
+                    background-color: $color_dark_header_button;
+                }
+            }
+        }
+    }
+    
+    .logo {
+        color: $color_dark_logo_glow !important;
+        text-shadow: 0 0 6px $color_dark_light_accent !important; 
+    }
+    
+    .contextly-menu {
+        background-color: $color_dark_background !important;
+        ul {
+            color: $color_dark_body_text !important;
+            li {
+                .icon {
+                    filter: invert(1);
+                }
+                &:hover {
+                    background-color: $color_accent !important;
+                }
+            }
+        }
+    }
+    
+    div.switch {
+        input[type='checkbox'] + label {
+            color: $color_dark_header_text !important;
+            span {
+                background-color: $color_dark_shadow;
+                &:before {
+                    background-color: $color_dark_header !important;
+                }
+            }
+        }
+        input[type='checkbox']:checked + label > span {
+            background-color: $color_success;
+        }
+    }
+
+    div.checkbox {
+        input[type='checkbox'] + label {
+            color: $color_dark_header_text !important;
+        }
+        input[type='checkbox'] + label > span {
+            border: 2px solid $color_dark_header !important;
+        }
+        input[type='checkbox']:checked + label > span:before {
+            animation: checkbox-check 125ms $transition_200 forwards !important;
+        }
+
+        @keyframes checkbox-check {
+            0% {
+                width: 0;
+                height: 0;
+                border-color: $color_dark_header;
+                transform: translate3d(0,0,0) rotate(45deg);
+            }
+            33% {
+                width: .2em;
+                height: .4em;
+                transform: translate3d(0,0,0) rotate(45deg);
+            }
+            100% {    
+                width: .2em;
+                height: 1em;    
+                border-color: $color_dark_header;
+                transform: translate3d(0,-.5em,0) rotate(45deg);
+            }
+        }
+    }
+    
+    h6, h5, h4, h3, h2, h1 {
+        color: $color_dark_header_text !important;
+    }
+
+    p, span, div, label, input {
+        color: $color_dark_body_text;
+    }
+
+    button {
+        &.outline {
+            background-color: $color_dark_background !important;
+            color: $color_dark_body_text !important;
+            border: solid 3px $color_links !important;
+            &:hover {
+                background-color: $color_dark_shadow !important;
+            }
+        }
+        &:hover {
+            box-shadow: -3px 3px $color_dark_shadow !important;
+        }
+    }
+    
+    .ql-syntax,
+    blockquote {
+        color: $color_dark_body_text;
+    }
+
+    div.textbox {
+        input[type='number'],
+        input[type='date'],
+        input[type='time'],
+        input[type='text'],
+        input[type='email'] {
+            background-color: $color_dark_background !important;
+            color: $color_dark_body_text !important;
+        }
+    }
+
+    div.textarea {
+        textarea {
+            background-color: $color_dark_background !important;
+            color: $color_dark_body_text !important;
+        }
+    }
+
+    .banner {
+        background-color: $color_dark_background !important;
+        box-shadow: 6px 6px 10px rgba(0,0,0,0.2),
+        -6px -6px 10px rgba(44,44,44,1) !important;
+    } 
+
+    #layout__header {
+        background-color: rgba(45, 45, 47, 0.9) !important;
+        #header__right-container {
+            .header__button {
+                &:hover {
+                    background-color: $color_dark_header_button;
+                }
+            }   
+        }
+    }
+
+    a {
+        &:hover {
+            text-shadow: -1px 1px 0 $color_dark_shadow;
+        }
+    }
+
+    .notify-popup {
+        background-color: $color_dark_shadow !important;
+    }
+
+    div.quill-wrapper {
+        .toolbar {
+            background-color: rgba(0,0,0,0.1);
+        }
+    }
+}
+
+html.dark {
+    ::-webkit-scrollbar-track {
+        background: $color_dark_background !important;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: $color_accent !important;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: $color_dark_accent !important;
+    }
+}

@@ -1,0 +1,10 @@
+<div id="footer__left-container">
+    <p>&copy; 2020, <b>RM</b> <span id="footer__version">(v{{ version }})</span></p>
+</div>
+<div id="footer_middle-container">
+    <a class="footer__button-policy" href="/policies/terms">Terms and Conditions</a>
+    <a class="footer__button-policy" href="/policies/privacy">Privacy Policy</a>
+    <a class="footer__button-policy" href="/policies/cookies">Cookies Policy</a>
+</div>
+<div id="footer__right-container">
+</div>
